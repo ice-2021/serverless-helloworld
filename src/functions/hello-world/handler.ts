@@ -8,11 +8,12 @@ import { getCorsHeaders } from '@libs/header';
 import schema from './schema';
 
 const helloWorld = async event => {
-  log.info('[handler.hello.event.header]: ', event.headers);
-  log.info('[handler.hello.event.body]: ', event.body);
+  log.info('[handler.helloWorld.event.header]: ', event.headers);
+  log.info('[handler.helloWorld.event.body]: ', event.body);
 
   // 1. Setting the response headers
   const responseHeaders = getCorsHeaders(event.headers, ['POST', 'OPTIONS']);
+  log.debug('[handler.helloWorld.responseHeaders]: ', responseHeaders);
 
   // 2. Validating the request body schema
   const validationErrors = validateSchema(schema, event.body);
@@ -22,7 +23,7 @@ const helloWorld = async event => {
   }
 
   // 3. Business logic
-  const apiResponse = { message: `Hello, World ${event.body.name}` };
+  const apiResponse = { message: `Welcome to ICE 2021, ${event.body.name}!` };
 
   // 4. Success response
   return getSuccessResponse(200, apiResponse, responseHeaders);
